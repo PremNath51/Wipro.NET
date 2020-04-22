@@ -1,0 +1,69 @@
+﻿<h1>Welcome to Assement Management</h1>
+<button type="button" pButton icon="fa-check" label="Add Training" (click)="addTraining();trainingFormShow=true;"></button>
+<table class="table" width="400px">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Training Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Difference</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let train of allTrainigs">
+            <td>{{train.trainingId}}</td>
+            <td>{{train.trainingName}}</td>
+            <td>{{train.startDate | date:'MMMM d, y'}}</td>
+            <td>{{train.endDate | date:'MMMM d, y'}}</td>
+            <td>{{train.difference}}</td>
+        </tr>
+    </tbody>
+</table>
+<!--Dialog for Email Form-->
+<p-dialog header="Add/Update Training" [(visible)]="trainingFormShow" modal="modal" width="500" responsive="true">
+    <div class="container-fluid">
+        <form id="" [formGroup]="trainingData" (ngSubmit)="saveTraining(trainingData.value)">
+            <div class="form-group" [ngClass]="{'has-error':!trainingData.controls['TrainingName'].valid}">
+                <label>Training Name:</label>
+                <input class="form-control" type="text" placeholder=".Net Fullstack" [formControl]="trainingData.controls['TrainingName']">
+                <div *ngIf="trainingData.controls['TrainingName'].hasError('required')" class="alert alert-danger">Training name is required.</div>
+            </div>
+            <div class="form-group" [ngClass]="{'has-error':!trainingData.controls['StartDate'].valid}">
+                <label>Start Date:</label>
+                <input class="form-control" type="date" placeholder=".Net Fullstack" [formControl]="trainingData.controls['StartDate']">
+                <div *ngIf="trainingData.controls['StartDate'].hasError('required')" class="alert alert-danger">Start date is required.</div>
+            </div>
+            <div class="form-group" [ngClass]="{'has-error':!trainingData.controls['EndDate'].valid}">
+                <label>End Date:</label>
+                <input class="form-control" type="date" placeholder=".Net Fullstack" [formControl]="trainingData.controls['EndDate']">
+                <div *ngIf="trainingData.controls['EndDate'].hasError('required')" class="alert alert-danger">End date is required.</div>
+                <div *ngIf="trainingData.errors" class="alert alert-danger">{{ trainingData.errors?.dates | json }}</div>
+            </div>
+        </form>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-check" label="Save Training" (click)="saveTraining(trainingData.value)" [disabled]="!trainingData.valid"></button>
+            <button type="button" pButton icon="fa-close" label="Close" (click)="trainingFormShow=false;"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+<!--Dialog Alert Message-->
+<p-dialog [header]="Info!" [(visible)]="alertDisplay" modal="modal" width="350" responsive="true">
+    <div class="container-fluid">
+        {{alertMessage}}
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="closeMessage()" label="Okay"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+<p-confirmDialog header="Please Confirm" icon="fa fa-question-circle" width="425" #cd>
+    <p-footer>
+        <button type="button" pButton icon="fa-close" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="fa-check" label="Yes" (click)="cd.accept()"></button>
+    </p-footer>
+</p-confirmDialog>
