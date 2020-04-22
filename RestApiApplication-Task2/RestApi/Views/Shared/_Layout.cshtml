@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <script src="~/dist/misc.js" asp-append-version="true"></script>
+    <script src="~/dist/angular.js" asp-append-version="true"></script>
+    <style type="text/css">
+        .ui-dialog .ui-dialog-buttonpane {
+            border-width: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .alert{
+            padding:5px !important;
+            margin-bottom: 5px !important;
+        }
+    </style>
+    <environment names="Development">
+        <script src="~/node_modules/systemjs/dist/system.src.js"></script>
+        <script src="~/js/systemjs.config.js"></script>
+        <script>
+            System.import('main').catch(function (err) {
+                console.error(err);
+            });
+        </script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/ClientApp/main.js"></script>
+    </environment>
+
+</head>
+<body>
+    @RenderBody()
+    @RenderSection("scripts", required: false)
+</body>
+</html>
