@@ -60,7 +60,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "@types/node": "^7.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "rimraf": "^2.6.0",
     "gulp-concat": "^2.6.1",
     "gulp-cssmin": "^0.1.7",
